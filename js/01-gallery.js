@@ -9,7 +9,7 @@ import { galleryItems } from "./gallery-items.js";
 
 // 4.Открытие модального окна по клику на элементе галереи.Для этого ознакомься с документацией и примерами.
 
-// 5.Замена значения атрибута src элемента < img > в модальном окне перед открытием.Используй готовую разметку модального окна с изображением из примеров библиотеки basicLightbox.
+// 5.Замена значения атрибута src элемента <img img > в модальном окне перед открытием.Используй готовую разметку модального окна с изображением из примеров библиотеки basicLightbox.
 
 // console.log(galleryItems);
 
@@ -70,15 +70,55 @@ import { galleryItems } from "./gallery-items.js";
 //     />
 //   </a>
 // </div>; */}
-const galleryList = document.querySelector(".gallery");
-const galleryMarkup = createGalleryList(galleryItems);
-galleryList.insertAdjacentHTML("beforeend", galleryMarkup);
-galleryList.addEventListener("click", onClick);
+// const galleryList = document.querySelector(".gallery");
+// const galleryMarkup = createGalleryList(galleryItems);
+// galleryList.insertAdjacentHTML("beforeend", galleryMarkup);
+// galleryList.addEventListener("click", onClick);
 
-function createGalleryList(galleryItems) {
+// function createGalleryList(galleryItems) {
+//   return galleryItems
+//     .map(({ preview, original, description }) => {
+//       return `<div class="gallery__item">
+//   <a class="gallery__link" href="${original}">
+//     <img
+//       class="gallery__image"
+//       src="${preview}"
+//       data-source="${original}"
+//       alt="${description}"
+//     />
+//   </a>
+// </div>`;
+//     })
+//     .join("");
+// }
+
+// function onClick(e) {
+//   e.preventDefault();
+//   if (e.target.nodeName !== "IMG") {
+//     return;
+//   }
+//   const selectImage = e.target.dataset.source;
+//   // console.log(selectImage);
+
+//   const instance = basicLightbox.create(`
+//     <img src="${selectImage}" width="800" height="600">
+// `);
+
+//   instance.show();
+//   galleryList.addEventListener("keydown", (e) => {
+//     if (e.key === "Escape") {
+//       instance.close();
+//     }
+//   });
+// }
+const gallery = document.querySelector(".gallery");
+const galleryMarkup = createGalMarkup(galleryItems);
+gallery.insertAdjacentHTML("beforeend", galleryMarkup);
+gallery.addEventListener("click", onClick);
+function createGalMarkup(galleryItems) {
   return galleryItems
     .map(({ preview, original, description }) => {
-      return `<div class="gallery__item">
+      return `<li class="gallery__item">
   <a class="gallery__link" href="${original}">
     <img
       class="gallery__image"
@@ -87,7 +127,7 @@ function createGalleryList(galleryItems) {
       alt="${description}"
     />
   </a>
-</div>`;
+</li>`;
     })
     .join("");
 }
@@ -97,15 +137,16 @@ function onClick(e) {
   if (e.target.nodeName !== "IMG") {
     return;
   }
-  const selectImage = e.target.dataset.source;
-  // console.log(selectImage);
+  const selectImg = e.target.dataset.source;
+  console.log(selectImg);
 
   const instance = basicLightbox.create(`
-    <img src="${selectImage}" width="800" height="600">
+    <img src="${selectImg}" width="800" height="600">
 `);
 
   instance.show();
-  galleryList.addEventListener("keydown", (e) => {
+
+  gallery.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
       instance.close();
     }
